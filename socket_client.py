@@ -21,28 +21,28 @@ if user_name == 'admin' and password == admin_password :
     user = '<ADMIN>'
     ack = input('You have logged in as admin , Want to Manage App [Y/N] : ')
 
-    
-    if ack.upper() == 'Y':
-        print('1. Create User')
-        print('2. Modify User Name')
-        print('3. Modify Password')
-        print('4. Delete User')
-        option = int(input('Kindly Select Your option : '))
+    while input('Want To Manage [Y/N] :').upper() == 'Y':
+        if ack.upper() == 'Y':
+            print('1. Create User')
+            print('2. Modify User Name')
+            print('3. Modify Password')
+            print('4. Delete User')
+            option = int(input('Kindly Select Your option : '))
 
-        if option == 1:
-            create_user_name = input('Kindly Enter Username You want to create : ')
-            create_password = getpass.getpass(f'Kindly Enter Password of {create_user_name}: ')
-            create_user(user_dictionary , create_user_name , create_password)
-        elif option == 2:
-            old_user_name = input('Kindly Enter Old Username  : ')
-            new_user_name = input('Kindly Enter New Username  : ')
-            modify_user_name(user_dictionary , new_user_name , old_user_name)      
-        elif option == 3:
-            old_user_name = input('Kindly Enter Username You : ')
-            new_password = getpass.getpass('Kindly Enter New Password : ')
-        elif option == 4:
-            delete_user_name = input('Kindly Enter Username You Want to delete : ')
-            delete_user(user_dictionary , delete_user_name)
+            if option == 1:
+                create_user_name = input('Kindly Enter Username You want to create : ')
+                create_password = getpass.getpass(f'Kindly Enter Password of {create_user_name}: ')
+                create_user(user_dictionary , create_user_name , create_password)
+            elif option == 2:
+                old_user_name = input('Kindly Enter Old Username  : ')
+                new_user_name = input('Kindly Enter New Username  : ')
+                modify_user_name(user_dictionary , new_user_name , old_user_name)      
+            elif option == 3:
+                old_user_name = input('Kindly Enter Username You : ')
+                new_password = getpass.getpass('Kindly Enter New Password : ')
+            elif option == 4:
+                delete_user_name = input('Kindly Enter Username You Want to delete : ')
+                delete_user(user_dictionary , delete_user_name)
 
 
 print(user_dictionary)
