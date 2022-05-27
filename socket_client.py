@@ -19,12 +19,12 @@ class Group:
         # Formatting Message
         message = bytes(f'{message}' , 'utf-8')
         socket_to_send.send(message)
-        self.group_messages.append('Sent Message : ' + message)
+        self.group_messages.append('Sent Message : ' + str(message))
     def receive_messages(self , message = bytes('Test Message' , 'utf-8')):
         print(f'Group Name : {self.group_name}')
         rc_msg = Group.create(self).recv(1024)
         print('Received Message : ' , Group.create(self).recv(1024))
-        self.group_messages.append('Received Message : ' + rc_msg)
+        self.group_messages.append('Received Message : ' + str(rc_msg))
     def print_messages(self):
         for msg in self.group_messages:
             print(msg)
@@ -45,7 +45,7 @@ def delete_user(user_dictionary , user_name):
 user_name = input('Kindly Enter Your Username : ')
 password = getpass.getpass('Kindly Enter Your Password : ')
 
-user_dictionary = {}
+user_dictionary = {'Karthik' : '1234'}
 
 if user_name == 'admin' and password == admin_password :
     user = '<ADMIN>'
@@ -86,23 +86,8 @@ elif user_dictionary[user_name] == password:
     group_obj.send_messages('Third Message')
     print('Message sent. Check the other endpoint if it has been received.')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+else:
+    print('Kindly check auth credentials')
 
 #client_socket = socket.socket()
 # IP address and port needed as args as a tuple
