@@ -14,7 +14,10 @@ print('Waiting for connections')
 
 while True:
     client_socket , client_address = server_socket.accept()
-    print('Connected with : ' , client_address)
+    # Receiving Name
+    name = client_socket.recv(1024).decode()
+
+    print('Connected with : ' , client_address , name)
 
     # Sending message to client
     client_socket.send(b'Harigato Ozaimaz')
