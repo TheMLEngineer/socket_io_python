@@ -2,6 +2,36 @@ import socket
 import getpass
 from content import admin_password
 
+
+class Group:
+    def __init__(self , group_name) -> None:
+        self.group_name = group_name
+        self.group_messages = []
+        print(f'{group_name} Initialized ... ')
+    def create(self , ip_address = 'localhost' , port = 9999):
+        client_socket = socket.socket()
+        # IP address and port needed as args as a tuple
+        client_socket.connect((ip_address , port))
+        print(f'{self.group_name} Created ... ')
+        return client_socket
+    def send_messages(self , message = bytes('Test Message' , 'utf-8')):
+        socket_to_send = Group.create(self)
+        # Formatting Message
+        message = bytes(f'{message}' , 'utf-8')
+        socket_to_send.send(message)
+        self.group_messages.append('Sent Message : ' + message)
+    def receive_messages(self , message = bytes('Test Message' , 'utf-8')):
+        print(f'Group Name : {self.group_name}')
+        rc_msg = Group.create(self).recv(1024)
+        print('Received Message : ' , Group.create(self).recv(1024))
+        self.group_messages.append('Received Message : ' + rc_msg)
+    def print_messages(self):
+        for msg in self.group_messages:
+            print(msg)
+
+
+
+
 def create_user(user_dictionary , user_name , password):
     user_dictionary[user_name] = password
 def modify_user_name(user_dictionary , new_user_name , old_user_name):
@@ -45,7 +75,16 @@ if user_name == 'admin' and password == admin_password :
                 delete_user(user_dictionary , delete_user_name)
 
 
-print(user_dictionary)
+# Normal User Login
+elif user_dictionary[user_name] == password:
+    print(f'Logged In As {user_name} ...')
+    # Creating local group object
+    group_obj = Group('Avengers')
+    print('Sending 3 random messages ... ')
+    group_obj.send_messages('First Message')
+    group_obj.send_messages('Second Message')
+    group_obj.send_messages('Third Message')
+    print('Message sent. Check the other endpoint if it has been received.')
 
 
 
@@ -59,14 +98,20 @@ print(user_dictionary)
 
 
 
-client_socket = socket.socket()
+
+
+
+
+
+
+#client_socket = socket.socket()
 # IP address and port needed as args as a tuple
-client_socket.connect(('localhost' , 9999))
+#client_socket.connect(('localhost' , 9999))
 
 # Sending A name to server
-name = input('Enter Your Name :')
-client_socket.send(bytes(name , 'utf-8'))
+#name = input('Enter Your Name :')
+#client_socket.send(bytes(name , 'utf-8'))
 
 # Printing what client received from server
 # 1024 is buffer size here
-print(client_socket.recv(1024))
+#print(client_socket.recv(1024))
